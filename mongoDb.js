@@ -2,7 +2,11 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 
-const mongoUri = process.env.MONGODB_URI;
+let mongoUri = process.env.MONGODB_URI;
+
+if (!mongoUri) {
+    mongoUri = 'mongodb://127.0.0.1:27017/mydb';
+}
 
 async function connectMongo() {
 	if (!mongoUri) {
@@ -11,5 +15,3 @@ async function connectMongo() {
 
 	return mongoose.connect(mongoUri);
 }
-
-module.exports = { connectMongo, mongoose };
